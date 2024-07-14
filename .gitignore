@@ -1,0 +1,15 @@
+# dependencies
+node_modules
+
+# misc
+.DS_Store
+.eslintcache
+.idea
+.vscode
+
+# playwright
+test-results
+playwright-report/
+playwright/.cache/
+
+
