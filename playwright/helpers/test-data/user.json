@@ -1,0 +1,14 @@
+{
+    "users":{
+        "validUsers": [
+            {"email": "admin@admin.com", "password": "2020", "type": "validUser" },
+            {"email": "biancunha@gmail.com", "password": "123456", "type": "validUser"},
+            {"email": "growdev@growdev.com.br", "password": "growdev123", "type": "validUser" }
+        ],
+        "invalidUsers": [
+            {"email": "admin@admin.com", "password": "202123", "type": "wrongPassword", "errorMessage":""},
+            {"email": "", "password": "", "type": "emptyCredentials", "errorMessage":""},
+            {"email": "fakeUser@test.com", "password": "fakePassword",  "type": "invalidUser", "errorMessage":""}
+        ]
+    }
+}
