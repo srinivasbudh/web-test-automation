@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "We are looking for Automation Engineers that have the mindset \"only the sky is the limit\" and \"automation doesn't stop at testing, it's just a beginning!\" ;)",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+		"test": "npx playwright test",
+    "test:smoke": "npx playwright test --grep @smoke"
+	},
   "keywords": [],
   "author": "",
   "license": "ISC",
