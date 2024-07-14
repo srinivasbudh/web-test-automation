@@ -8,31 +8,43 @@ let reportConfig: OrtoniReportConfig = {
   preferredTheme: "dark"
 };
 
+const DEFAULT_WORKERS = 4;
+const DEFAULT_RETRIES = 0;
+const DEFAULT_BROWSER = 'chromium'; 
+
+const CI_WORKERS = process.env.CI_WORKERS ? parseInt(process.env.CI_WORKERS, 10) : DEFAULT_WORKERS;
+const CI_RETRIES = process.env.CI_RETRIES ? parseInt(process.env.CI_RETRIES, 10) : DEFAULT_RETRIES;
+const CI_BROWSER = process.env.CI_BROWSER || DEFAULT_BROWSER;
+
+function getDeviceConfig(browser: string) {
+  switch (browser) {
+    case 'chromium':
+      return devices['Desktop Chrome'];
+    case 'firefox':
+      return devices['Desktop Firefox'];
+    case 'webkit':
+      return devices['Desktop Safari'];
+    default:
+      throw new Error(`Unsupported browser: ${browser}`);
+  }
+}
+
 export default defineConfig({
   testDir: './playwright/tests/',
   fullyParallel: true,
-  retries: 2,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: [["ortoni-report", reportConfig], ["html"]],
+  retries: CI_RETRIES,
+  workers: CI_WORKERS,
+  reporter: [["ortoni-report", reportConfig], ["html"],["github"]],
   use: {
     headless: true,
-    // baseURL: 'http://127.0.0.1:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'off'
   },
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: CI_BROWSER,
+      use: { ...getDeviceConfig(CI_BROWSER) },
     },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    }
-  ]
+  ],
 });
