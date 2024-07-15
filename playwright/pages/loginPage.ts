@@ -33,6 +33,7 @@ export class LoginPage extends BasePage {
     return this.loginButton().isVisible();
   }
 
+  // Verifies if user is logged out ot login failure by checking loginpage visibility 
   async verifyUserIsNotLoggedIn(): Promise<void> {
     const userLoggedOut = await this.verifyIsPageLoaded();
     const logMessage = `${colors.blue('Expected no active user session so login page should be visible ton true')}`;

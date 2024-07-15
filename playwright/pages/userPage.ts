@@ -54,7 +54,7 @@ export class UserPage extends BasePage {
   //verify logged-in user name matches in local storage
   async verifyUserIsLoggedIn(email: string): Promise<void> {
     const loggedInUser = await this.getLoggedInUser();
-    const logMessage = `${colors.blue('Logged in user is expected to be ')}${colors.green(email)}${colors.blue(' but the user logged-in is')}${colors.green('null')}`;
+    const logMessage = `${colors.blue('Logged in user is expected to be ')}${colors.green(email)}${colors.blue(' but the user logged-in is')}${loggedInUser}`;
     expect(loggedInUser, logMessage).toBe(email);
   }
 }
