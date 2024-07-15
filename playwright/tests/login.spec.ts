@@ -4,7 +4,7 @@ import * as userDetails from '../helpers/test-data/user.json';
 
 test.describe('Login Flow', () => {
 
-  test.beforeEach(async ({ loginPage, basePage }) => {
+  test.beforeEach(async ({ loginPage }) => {
     await loginPage.navigateToHomePage();
   });
 
@@ -27,7 +27,7 @@ test.describe('Login Flow', () => {
     userDetails.users.invalidUsers.forEach((user: { email: string; password: string; type: string }) => {
       test(`should fail to log in with ${user.type}`, 
       { tag: ["@Login", "@Regression"]},
-      async ({ loginPage, userPage }) => {
+      async ({ loginPage}) => {
         await loginPage.login(user.email, user.password);
         await loginPage.verifyUserIsNotLoggedIn();
       });
